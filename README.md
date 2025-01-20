@@ -13,7 +13,7 @@ This is the frontend of the authentication system that allows users to register,
 
 ### Setup Frontend Locally:
 
-1. Clone the repository: `git clone <frontend-repo-url>`
+1. Clone the repository: `git clone https://github.com/ibrahzizo360/t-shield-frontend`
 2. Navigate to the frontend directory: `cd frontend`
 3. Install dependencies: `npm install`
 4. Start the frontend app: `npm start`
