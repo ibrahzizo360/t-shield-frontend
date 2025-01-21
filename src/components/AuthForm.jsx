@@ -8,10 +8,16 @@ import { FiEyeOff } from "react-icons/fi";
 import { useState } from "react";
 import { FiEye } from "react-icons/fi";
 import { FaRegUser } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 // Validation schema using Yup
 const AuthForm = ({ isLogin, onSubmit, isLoading }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+
+  const handleNavigation = () => {
+    navigate(isLogin ? "/register" : "/login");
+  };
 
   // Define the schema conditionally based on whether it's login or signup
   const schema = Yup.object().shape({
@@ -209,12 +215,12 @@ const AuthForm = ({ isLogin, onSubmit, isLoading }) => {
           <div className="mt-4 text-center">
             <span className="text-gray-600 text-sm">
               {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
-              <a
-                href={isLogin ? "/register" : "/login"}
+              <button
+                onClick={handleNavigation}
                 className="text-[#3F7AFE] font-bold hover:underline"
               >
                 {isLogin ? "Sign up" : "Login"}
-              </a>
+              </button>
             </span>
           </div>
         </Form>
