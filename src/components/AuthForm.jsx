@@ -7,6 +7,7 @@ import { IoKeyOutline } from "react-icons/io5";
 import { FiEyeOff } from "react-icons/fi";
 import { useState } from "react";
 import { FiEye } from "react-icons/fi";
+import { FaRegUser } from "react-icons/fa6";
 
 // Validation schema using Yup
 const AuthForm = ({ isLogin, onSubmit, isLoading }) => {
@@ -17,6 +18,11 @@ const AuthForm = ({ isLogin, onSubmit, isLoading }) => {
     email: Yup.string()
       .email("Invalid email format")
       .required("Email is required"),
+    username: !isLogin
+      ? Yup.string()
+          .min(3, "Username must be at least 3 characters")
+          .required("Username is required")
+      : Yup.string(),
     password: Yup.string()
       .min(6, "Password must be at least 6 characters")
       .required("Password is required"),
@@ -34,6 +40,7 @@ const AuthForm = ({ isLogin, onSubmit, isLoading }) => {
     <Formik
       initialValues={{
         email: "",
+        username: !isLogin ? "" : undefined, // Include username only if not logging in
         password: "",
         ...(isLogin ? {} : { passwordConfirmation: "" }),
       }}
@@ -62,7 +69,6 @@ const AuthForm = ({ isLogin, onSubmit, isLoading }) => {
                 placeholder="ziztech@gmail.com"
                 className="w-full lg:w-[350px] px-3 py-1.5 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#16a5eb] pl-10"
               />
-
               <FaRegEnvelope className="absolute left-3 bottom-0.5 transform -translate-y-1/2 text-gray-500" />
             </div>
             <ErrorMessage
@@ -71,6 +77,33 @@ const AuthForm = ({ isLogin, onSubmit, isLoading }) => {
               className="text-red-500 text-sm mt-1"
             />
           </div>
+
+          {/* Username Field (for signup only) */}
+          {!isLogin && (
+            <div className="mb-4">
+              <label
+                className="block mb-1 text-sm font-medium text-gray-700"
+                htmlFor="username"
+              >
+                Username
+              </label>
+              <div className="relative">
+                <Field
+                  type="text"
+                  id="username"
+                  name="username"
+                  placeholder="Choose a username"
+                  className="w-full lg:w-[350px] px-3 py-1.5 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#16a5eb] pl-10"
+                />
+                <FaRegUser className="absolute left-3 bottom-0.5 transform -translate-y-1/2 text-gray-500" />
+              </div>
+              <ErrorMessage
+                name="username"
+                component="p"
+                className="text-red-500 text-sm mt-1"
+              />
+            </div>
+          )}
 
           {/* Password Field */}
           <div className="mb-6 relative">
