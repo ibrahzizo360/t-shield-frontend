@@ -8,7 +8,6 @@ const Profile = () => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch user info when the component mounts
   useEffect(() => {
     const fetchUserInfo = async () => {
       const token = Cookies.get("token");
