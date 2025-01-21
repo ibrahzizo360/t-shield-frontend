@@ -4,16 +4,18 @@ import { API_URL } from "../constants/urls";
 import axios from "axios";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const RegisterPage = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleRegister = async (data) => {
     try {
       setIsLoading(true);
       await axios.post(`${API_URL}/users/register`, data);
       alert("Registration successful!");
-      window.location.href = "/login";
+      navigate("/login");
     } catch (error) {
       setIsLoading(false);
       console.error(

@@ -4,9 +4,11 @@ import { API_URL } from "../constants/urls";
 import axios from "axios";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = async (data) => {
     setIsLoading(true);
@@ -14,7 +16,7 @@ const LoginPage = () => {
       const response = await axios.post(`${API_URL}/users/login`, data);
       document.cookie = `token=${response.data.token}`;
       alert("Login successful!");
-      window.location.href = "/profile";
+      navigate("/profile");
     } catch (error) {
       console.error("Login error:", error.response?.data || error.message);
       alert("Invalid credentials");
